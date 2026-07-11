@@ -207,42 +207,25 @@ def ring(cx, cy, r, frac, color, width=8):
 
 
 def header_svg():
-    w, h = 900, 230
-    p = [head(w, h, "Sissi"), f'<rect width="{w}" height="{h}" fill="{BG}"/>']
-    # the wordmark is the one loud element; everything else stays quiet
-    p.append(text_path(script, "Sissi", 96, w / 2, 118, ROSE, anchor="middle"))
-    # short hairline: frames the name rather than underlining it
+    # transparent - no card, just the wordmark and its hairline
+    w, h = 900, 160
+    p = [head(w, h, "Sissi")]
+    p.append(text_path(script, "Sissi", 96, w / 2, 108, ROSE, anchor="middle"))
     p.append(
-        f'<line x1="{w/2-90}" y1="146" x2="{w/2+90}" y2="146" '
+        f'<line x1="{w/2-90}" y1="138" x2="{w/2+90}" y2="138" '
         f'stroke="{PINK}" stroke-width="0.75" opacity="0.5"/>'
-    )
-    p.append(
-        text_path(
-            corm,
-            "Wirtschaftsinformatik  ·  Explainable AI  ·  Regensburg",
-            21,
-            w / 2,
-            180,
-            MUTED,
-            tracking=1.4,
-            anchor="middle",
-        )
     )
     p.append("</svg>")
     return "".join(p)
 
 
 def heading_svg(label):
-    size = 30
-    tw = corm.width(label, size, tracking=1.6)
-    w, h = int(tw) + 260, 52
-    p = [head(w, h, label), f'<rect width="{w}" height="{h}" fill="{BG}"/>']
-    p.append(text_path(corm, label, size, 4, 36, ROSE, tracking=1.6))
-    # rule runs out to the edge: the heading opens the section, doesn't box it
-    p.append(
-        f'<line x1="{tw + 22:.0f}" y1="29" x2="{w - 4}" y2="29" '
-        f'stroke="{PINK}" stroke-width="0.75" opacity="0.35"/>'
-    )
+    # transparent, no trailing rule - just the words
+    size = 22
+    tw = corm.width(label, size, tracking=1.2)
+    w, h = int(tw) + 10, 34
+    p = [head(w, h, label)]
+    p.append(text_path(corm, label, size, 2, 25, ROSE, tracking=1.2))
     p.append("</svg>")
     return "".join(p)
 
