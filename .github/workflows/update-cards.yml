@@ -1,0 +1,43 @@
+name: Update Cards
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch cards
+        run: |
+          mkdir -p assets
+          fetch () {
+            url="$1"; out="$2"
+            tmp=$(mktemp)
+            if curl -sfL --max-time 40 "$url" -o "$tmp" \
+               && head -c 300 "$tmp" | grep -qi "<svg" \
+               && ! grep -qi "Something went wrong" "$tmp"; then
+              mv "$tmp" "assets/$out"
+              echo "✓ updated $out"
+            else
+              echo "✗ skipped $out (service unavailable, keeping old version)"
+              rm -f "$tmp"
+            fi
+          }
+          fetch "https://github-readme-stats.vercel.app/api?username=sissighn&theme=radical&hide_border=true&show_icons=true&bg_color=0d1117" "stats.svg"
+          fetch "https://github-readme-stats.vercel.app/api/top-langs/?username=sissighn&theme=radical&hide_border=true&layout=compact&bg_color=0d1117" "top-langs.svg"
+          fetch "https://nirzak-streak-stats.vercel.app/?user=sissighn&theme=radical&hide_border=true&background=0d1117" "streak.svg"
+          fetch "https://github-profile-trophy.vercel.app/?username=sissighn&theme=radical&no-frame=true&no-bg=true&column=7&margin-w=10" "trophy.svg"
+          fetch "https://github-readme-activity-graph.vercel.app/graph?username=sissighn&theme=react-dark&hide_border=true&bg_color=0d1117&color=d16ba5&line=d16ba5&point=ffffff&area=true&area_color=d16ba5" "activity.svg"
+          fetch "https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=ai-race-engineer&theme=radical&hide_border=true&bg_color=0d1117" "pin-ai-race-engineer.svg"
+          fetch "https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=dressup-exe&theme=radical&hide_border=true&bg_color=0d1117" "pin-dressup-exe.svg"
+          fetch "https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=vintage-typewriter&theme=radical&hide_border=true&bg_color=0d1117" "pin-vintage-typewriter.svg"
+          fetch "https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=PlantPulse&theme=radical&hide_border=true&bg_color=0d1117" "pin-plantpulse.svg"
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git diff --staged --quiet || (git commit -m "chore: update stat cards" && git push)
