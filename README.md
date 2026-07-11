@@ -46,16 +46,6 @@
   <img src="https://raw.githubusercontent.com/Sissighn/sissighn/output/github-snake-dark.svg" alt="snake animation" />
 </div>
 
-## ༄.° 𝐅𝐞𝐚𝐭𝐮𝐫𝐞𝐝 𝐏𝐫𝐨𝐣𝐞𝐜𝐭𝐬
-
-<div align="center">
-  <a href="https://github.com/Sissighn/ai-race-engineer"><img src="assets/pin-ai-race-engineer.svg" /></a>
-  <a href="https://github.com/Sissighn/dressup-exe"><img src="assets/pin-dressup-exe.svg" /></a>
-  <br/>
-  <a href="https://github.com/Sissighn/vintage-typewriter"><img src="assets/pin-vintage-typewriter.svg" /></a>
-  <a href="https://github.com/Sissighn/PlantPulse"><img src="assets/pin-plantpulse.svg" /></a>
-</div>
-
 <br/>
 
 <div align="center">
