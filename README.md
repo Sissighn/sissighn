@@ -1,7 +1,4 @@
-<div align="center">
-  <img src="assets/header.svg" alt="Sissi" width="100%"/>
-</div>
-<div align="center">
+<div align="center"> <img src="assets/header.svg" alt="Sissi" width="100%"/></div>
 
 <!-- Typing intro -->
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=D16BA5&center=true&vCenter=true&width=500&lines=Business+Informatics+%40+Uni+Regensburg;Working+Student+Developer+%40+ATOSS;Explainable+AI+%7C+PyTorch+%7C+OSGi" alt="Typing SVG" />
