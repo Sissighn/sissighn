@@ -6,8 +6,6 @@
 <!-- Typing intro -->
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=D16BA5&center=true&vCenter=true&width=500&lines=Business+Informatics+%40+Uni+Regensburg;Working+Student+Developer+%40+ATOSS;Explainable+AI+%7C+PyTorch+%7C+OSGi" alt="Typing SVG" />
 
-</div>
-
 ## ༄.° 𝐓𝐞𝐜𝐡 𝐒𝐭𝐚𝐜𝐤
 
 **Languages**<br/>
@@ -22,47 +20,38 @@
 ## ༄.° 𝐆𝐢𝐭𝐇𝐮𝐛 𝐒𝐭𝐚𝐭𝐬
 
 <div align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=sissighn&theme=radical&hide_border=true&include_all_commits=true&count_private=true&show_icons=true&bg_color=0d1117" />
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=sissighn&theme=radical&hide_border=true&layout=compact&bg_color=0d1117" />
+  <img height="170" src="assets/stats.svg" />
+  <img height="170" src="assets/top-langs.svg" />
 </div>
 
 <div align="center">
-  <img src="https://nirzak-streak-stats.vercel.app/?user=sissighn&theme=radical&hide_border=true&background=0d1117" />
+  <img src="assets/streak.svg" />
 </div>
 
 ## ༄.° 𝐁𝐚𝐝𝐠𝐞𝐬
 
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=sissighn&theme=radical&no-frame=true&no-bg=true&column=7&margin-w=10" />
+  <img src="assets/trophy.svg" />
 </div>
 
 ## ༄.° 𝐀𝐜𝐭𝐢𝐯𝐢𝐭𝐲
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=sissighn&theme=react-dark&hide_border=true&bg_color=0d1117&color=d16ba5&line=d16ba5&point=ffffff&area=true&area_color=d16ba5" width="95%"/>
+  <img src="assets/activity.svg" width="95%"/>
 </div>
 
-<!-- Snake Animation (siehe Setup-Anleitung) -->
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Sissighn/Sissighn/output/github-snake-dark.svg" alt="snake animation" />
+  <img src="https://raw.githubusercontent.com/Sissighn/sissighn/output/github-snake-dark.svg" alt="snake animation" />
 </div>
 
 ## ༄.° 𝐅𝐞𝐚𝐭𝐮𝐫𝐞𝐝 𝐏𝐫𝐨𝐣𝐞𝐜𝐭𝐬
 
 <div align="center">
-  <a href="https://github.com/Sissighn/ai-race-engineer">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=ai-race-engineer&theme=radical&hide_border=true&bg_color=0d1117" />
-  </a>
-  <a href="https://github.com/Sissighn/dressup-exe">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=dressup-exe&theme=radical&hide_border=true&bg_color=0d1117" />
-  </a>
+  <a href="https://github.com/Sissighn/ai-race-engineer"><img src="assets/pin-ai-race-engineer.svg" /></a>
+  <a href="https://github.com/Sissighn/dressup-exe"><img src="assets/pin-dressup-exe.svg" /></a>
   <br/>
-  <a href="https://github.com/Sissighn/vintage-typewriter">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=vintage-typewriter&theme=radical&hide_border=true&bg_color=0d1117" />
-  </a>
-  <a href="https://github.com/Sissighn/PlantPulse">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sissighn&repo=PlantPulse&theme=radical&hide_border=true&bg_color=0d1117" />
-  </a>
+  <a href="https://github.com/Sissighn/vintage-typewriter"><img src="assets/pin-vintage-typewriter.svg" /></a>
+  <a href="https://github.com/Sissighn/PlantPulse"><img src="assets/pin-plantpulse.svg" /></a>
 </div>
 
 <br/>
