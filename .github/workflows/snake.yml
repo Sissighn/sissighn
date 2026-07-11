@@ -12,10 +12,10 @@ jobs:
       - uses: Platane/snk@v3
         with:
           github_user_name: Sissighn
-          # Helle Grüns auf dunklem Grund + pinke Schlange.
-          # color_dots: leer -> wenig -> viel Contributions (hell genug für schwarzen Hintergrund)
+          # Light greens so the dots stay visible on the dark background,
+          # rose snake to match the wordmark.
           outputs: |
-            dist/github-snake-dark.svg?color_snake=#ff6ec7&color_dots=#30363d,#1a7f37,#2ea043,#3fb950,#56d364
+            dist/github-snake-dark.svg?color_snake=#f2b8d4&color_dots=#30363d,#1a7f37,#2ea043,#3fb950,#56d364
       - uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: output
