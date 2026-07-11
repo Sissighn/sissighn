@@ -12,7 +12,7 @@
     @media (prefers-reduced-motion: reduce) { .fadein { animation: none; opacity: 1; } }
   </style>
   <rect width="500" height="180" rx="10" fill="#0d1117"/>
-<g class="fadein"><text x="95" y="82" text-anchor="middle" class="mid">1449</text><text x="95" y="106" text-anchor="middle" class="label">Total contributions</text><text x="95" y="124" text-anchor="middle" class="muted">last 12 months</text></g><g class="fadein" style="animation-delay:.15s">
+<g class="fadein"><text x="95" y="82" text-anchor="middle" class="mid">1458</text><text x="95" y="106" text-anchor="middle" class="label">Total contributions</text><text x="95" y="124" text-anchor="middle" class="muted">last 12 months</text></g><g class="fadein" style="animation-delay:.15s">
   <circle cx="250" cy="88" r="46" stroke="#21262d" stroke-width="9"/>
   <circle cx="250" cy="88" r="46" stroke="#ff6ec7" stroke-width="9"
           stroke-linecap="round" stroke-dasharray="52.0 289.0"
