@@ -1,0 +1,19 @@
+<svg width="500" height="200" viewBox="0 0 500 200" fill="none"
+     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sissi 's GitHub stats">
+  <style>
+    .title { font: 600 17px 'Segoe UI', Ubuntu, Sans-Serif; fill: #d16ba5; }
+    .label { font: 400 13px 'Segoe UI', Ubuntu, Sans-Serif; fill: #c9d1d9; }
+    .muted { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: #8b949e; }
+    .value { font: 700 14px 'Segoe UI', Ubuntu, Sans-Serif; fill: #ff6ec7; }
+    .big   { font: 800 34px 'Segoe UI', Ubuntu, Sans-Serif; fill: #ffffff; }
+    .mid   { font: 800 26px 'Segoe UI', Ubuntu, Sans-Serif; fill: #ffffff; }
+    .fadein { opacity: 0; animation: fade .6s ease forwards; }
+    @keyframes fade { to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .fadein { animation: none; opacity: 1; } }
+  </style>
+  <rect width="500" height="200" rx="10" fill="#0d1117"/>
+<text x="25" y="35" class="title">Sissi &#8217;s GitHub Stats</text><g class="fadein">
+  <circle cx="95" cy="122" r="52" stroke="#21262d" stroke-width="9"/>
+  <circle cx="95" cy="122" r="52" stroke="#d16ba5" stroke-width="9"
+          stroke-linecap="round" stroke-dasharray="93.7 326.7"
+          transform="rotate(-90 95 122)"/></g><text x="95" y="122" text-anchor="middle" class="big" dominant-baseline="middle">1449</text><text x="95" y="150" text-anchor="middle" class="muted">contributions</text><text x="95" y="164" text-anchor="middle" class="muted">last year</text><g class="fadein" style="animation-delay:0.00s"><text x="230" y="74" text-anchor="end" class="label">Commits</text><rect x="240" y="65" width="170" height="9" rx="4.5" fill="#21262d"/><rect x="240" y="65" width="170.0" height="9" rx="4.5" fill="#2dd4bf"/><text x="422" y="74" class="value">1437</text></g><g class="fadein" style="animation-delay:0.15s"><text x="230" y="108" text-anchor="end" class="label">Stars earned</text><rect x="240" y="99" width="170" height="9" rx="4.5" fill="#21262d"/><rect x="240" y="99" width="6.0" height="9" rx="4.5" fill="#f0b429"/><text x="422" y="108" class="value">2</text></g><g class="fadein" style="animation-delay:0.30s"><text x="230" y="142" text-anchor="end" class="label">Pull requests</text><rect x="240" y="133" width="170" height="9" rx="4.5" fill="#21262d"/><rect x="240" y="133" width="6.0" height="9" rx="4.5" fill="#ff6ec7"/><text x="422" y="142" class="value">0</text></g><g class="fadein" style="animation-delay:0.45s"><text x="230" y="176" text-anchor="end" class="label">Issues</text><rect x="240" y="167" width="170" height="9" rx="4.5" fill="#21262d"/><rect x="240" y="167" width="6.0" height="9" rx="4.5" fill="#86a8e7"/><text x="422" y="176" class="value">0</text></g></svg>

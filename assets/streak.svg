@@ -1,0 +1,19 @@
+<svg width="500" height="180" viewBox="0 0 500 180" fill="none"
+     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Contribution streaks">
+  <style>
+    .title { font: 600 17px 'Segoe UI', Ubuntu, Sans-Serif; fill: #d16ba5; }
+    .label { font: 400 13px 'Segoe UI', Ubuntu, Sans-Serif; fill: #c9d1d9; }
+    .muted { font: 400 11px 'Segoe UI', Ubuntu, Sans-Serif; fill: #8b949e; }
+    .value { font: 700 14px 'Segoe UI', Ubuntu, Sans-Serif; fill: #ff6ec7; }
+    .big   { font: 800 34px 'Segoe UI', Ubuntu, Sans-Serif; fill: #ffffff; }
+    .mid   { font: 800 26px 'Segoe UI', Ubuntu, Sans-Serif; fill: #ffffff; }
+    .fadein { opacity: 0; animation: fade .6s ease forwards; }
+    @keyframes fade { to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .fadein { animation: none; opacity: 1; } }
+  </style>
+  <rect width="500" height="180" rx="10" fill="#0d1117"/>
+<g class="fadein"><text x="95" y="82" text-anchor="middle" class="mid">1449</text><text x="95" y="106" text-anchor="middle" class="label">Total contributions</text><text x="95" y="124" text-anchor="middle" class="muted">last 12 months</text></g><g class="fadein" style="animation-delay:.15s">
+  <circle cx="250" cy="88" r="46" stroke="#21262d" stroke-width="9"/>
+  <circle cx="250" cy="88" r="46" stroke="#ff6ec7" stroke-width="9"
+          stroke-linecap="round" stroke-dasharray="52.0 289.0"
+          transform="rotate(-90 250 88)"/><text x="250" y="84" text-anchor="middle" class="mid" dominant-baseline="middle">18</text><text x="250" y="112" text-anchor="middle" class="muted">days</text><text x="250" y="158" text-anchor="middle" class="label" fill="#ff6ec7" style="fill:#ff6ec7;font-weight:600">Current streak</text></g><g class="fadein" style="animation-delay:.3s"><text x="405" y="82" text-anchor="middle" class="mid">18</text><text x="405" y="106" text-anchor="middle" class="label">Longest streak</text><text x="405" y="124" text-anchor="middle" class="muted">105 active days</text></g></svg>
