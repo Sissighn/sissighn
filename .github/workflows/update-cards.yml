@@ -11,14 +11,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Stats, Streak & Top-Langs bauen wir selbst - keine Fremd-Instanz noetig
-      - name: Generate own cards
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install fonttools
+        run: pip install fonttools
+
+      # Fonts are fetched at build time and never committed to the repo.
+      # Both are SIL Open Font License, free for commercial use.
+      - name: Fetch fonts
+        run: |
+          mkdir -p fonts
+          base=https://raw.githubusercontent.com/google/fonts/main/ofl
+          curl -sfL "$base/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf" \
+            -o fonts/CormorantGaramond-var.ttf
+          curl -sfL "$base/pinyonscript/PinyonScript-Regular.ttf" \
+            -o fonts/PinyonScript-Regular.ttf
+          ls -la fonts/
+
+      # Header, headings, stats, streak and languages - all rendered here,
+      # straight from the GitHub API. No third-party card service involved.
+      - name: Generate cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_LOGIN: Sissighn
         run: python3 .github/scripts/generate_cards.py
 
-      # Trophy, Activity-Graph & Repo-Pins weiterhin extern, mit Fallbacks & Cache
+      # Trophies, activity graph and repo pins still come from outside.
+      # Each has fallback endpoints, and a failed fetch keeps the cached copy
+      # rather than leaving a broken image on the profile.
       - name: Fetch external cards
         run: |
           mkdir -p assets
@@ -29,22 +51,20 @@ jobs:
               if curl -sfL --retry 3 --retry-delay 5 --retry-all-errors --max-time 40 "$url" -o "$tmp" \
                  && head -c 300 "$tmp" | grep -qi "<svg" \
                  && ! grep -qi "Something went wrong" "$tmp"; then
-                mv "$tmp" "assets/$out"
-                echo "OK  $out  <-  $url"
-                return 0
+                mv "$tmp" "assets/$out"; echo "OK   $out"; return 0
               fi
               rm -f "$tmp"
             done
-            echo "SKIP $out (all endpoints unavailable, keeping old version)"
+            echo "SKIP $out (endpoints down, keeping cached copy)"
           }
 
-          TROPHY_PARAMS="username=sissighn&theme=radical&no-frame=true&no-bg=true&column=7&margin-w=10"
+          T="username=sissighn&theme=radical&no-frame=true&no-bg=true&column=7&margin-w=10"
           fetch "trophy.svg" \
-            "https://github-profile-trophy.vercel.app/?$TROPHY_PARAMS" \
-            "https://github-profile-trophy-winning.vercel.app/?$TROPHY_PARAMS" \
-            "https://github-profile-trophy-liard-delta.vercel.app/?$TROPHY_PARAMS" \
-            "https://github-profile-trophy-fork-two.vercel.app/?$TROPHY_PARAMS" \
-            "https://github-profile-trophy-kannan.vercel.app/?$TROPHY_PARAMS"
+            "https://github-profile-trophy.vercel.app/?$T" \
+            "https://github-profile-trophy-winning.vercel.app/?$T" \
+            "https://github-profile-trophy-liard-delta.vercel.app/?$T" \
+            "https://github-profile-trophy-fork-two.vercel.app/?$T" \
+            "https://github-profile-trophy-kannan.vercel.app/?$T"
 
           fetch "activity.svg" \
             "https://github-readme-activity-graph.vercel.app/graph?username=sissighn&theme=react-dark&hide_border=true&bg_color=0d1117&color=d16ba5&line=d16ba5&point=ffffff&area=true&area_color=d16ba5"
@@ -60,4 +80,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets
-          git diff --staged --quiet || (git commit -m "chore: update stat cards" && git push)
+          git diff --staged --quiet || (git commit -m "chore: update profile cards" && git push)
