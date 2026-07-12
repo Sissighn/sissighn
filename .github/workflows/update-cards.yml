@@ -1,7 +1,7 @@
 name: Update Cards
 on:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 jobs:
   update:
@@ -38,7 +38,7 @@ jobs:
           GH_LOGIN: Sissighn
         run: python3 .github/scripts/generate_cards.py
 
-      # Trophies, activity graph and repo pins still come from outside.
+      # Activity graph and repo pins still come from outside.
       # Each has fallback endpoints, and a failed fetch keeps the cached copy
       # rather than leaving a broken image on the profile.
       - name: Fetch external cards
@@ -57,14 +57,6 @@ jobs:
             done
             echo "SKIP $out (endpoints down, keeping cached copy)"
           }
-
-          T="username=sissighn&theme=radical&no-frame=true&no-bg=true&column=7&margin-w=10"
-          fetch "trophy.svg" \
-            "https://github-profile-trophy.vercel.app/?$T" \
-            "https://github-profile-trophy-winning.vercel.app/?$T" \
-            "https://github-profile-trophy-liard-delta.vercel.app/?$T" \
-            "https://github-profile-trophy-fork-two.vercel.app/?$T" \
-            "https://github-profile-trophy-kannan.vercel.app/?$T"
 
           fetch "activity.svg" \
             "https://github-readme-activity-graph.vercel.app/graph?username=sissighn&theme=react-dark&hide_border=true&bg_color=0d1117&color=d16ba5&line=d16ba5&point=ffffff&area=true&area_color=d16ba5"
