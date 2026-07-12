@@ -53,6 +53,7 @@ QUERY = """
 query($login: String!) {
   user(login: $login) {
     name
+    createdAt
     followers { totalCount }
     pullRequests { totalCount }
     issues { totalCount }
@@ -113,6 +114,7 @@ def sample_data():
     weeks = [{"contributionDays": days[i : i + 7]} for i in range(0, len(days), 7)]
     return {
         "name": "Sissi",
+        "createdAt": "2022-04-01T00:00:00Z",
         "followers": {"totalCount": 2},
         "pullRequests": {"totalCount": 87},
         "issues": {"totalCount": 34},
@@ -180,7 +182,18 @@ def compute(user):
         "longest": longest,
         "active": sum(1 for d in days if d["contributionCount"] > 0),
         "langs": [(n, v["color"], v["size"] / tot) for n, v in top],
+        "years": _years(user.get("createdAt")),
     }
+
+
+def _years(created_at):
+    if not created_at:
+        return 1
+    import datetime as dt
+
+    created = dt.datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+    days = (dt.datetime.now(dt.timezone.utc) - created).days
+    return max(1, days // 365)
 
 
 # -------------------------------------------------------------- svg parts --
@@ -281,6 +294,45 @@ def langs_svg(s):
     return "".join(p)
 
 
+
+
+def _hexagon(cx, cy, r):
+    import math
+
+    pts = []
+    for i in range(6):
+        a = math.radians(60 * i - 90)
+        pts.append(f"{cx + r * math.sin(a):.1f},{cy - r * math.cos(a):.1f}")
+    return " ".join(pts)
+
+
+def badges_svg(s):
+    """Hexagonal achievement badges - replaces the dead trophy service."""
+    badges = [
+        (str(s["total"]), "Contributions", PINK_HI),
+        (str(s["longest"]), "Longest streak", TEAL),
+        (str(s["active"]), "Active days", GOLD),
+        (str(s["repos"]), "Repositories", BLUE),
+        (f"{s['years']}", "Years on GitHub", ROSE),
+    ]
+    cell = 150
+    w, h = cell * len(badges) + 40, 190
+    p = [head(w, h, "Achievements"), card_bg(w, h)]
+    for i, (value, label, color) in enumerate(badges):
+        cx = 20 + cell * i + cell / 2
+        cy = 78
+        p.append(
+            f'<polygon points="{_hexagon(cx, cy, 46)}" fill="{color}" fill-opacity="0.08" '
+            f'stroke="{color}" stroke-width="1.5"/>'
+        )
+        p.append(f'<polygon points="{_hexagon(cx, cy, 52)}" fill="none" stroke="{color}" stroke-width="0.5" opacity="0.4"/>')
+        size = 30 if len(value) < 4 else 24
+        p.append(text_path(corm_m, value, size, cx, cy + size * 0.32, "#ffffff", anchor="middle"))
+        p.append(text_path(corm, label, 16, cx, 162, TEXT, tracking=0.5, anchor="middle"))
+    p.append("</svg>")
+    return "".join(p)
+
+
 HEADINGS = {
     "about": "About Me",
     "stack": "Tech Stack",
@@ -299,6 +351,7 @@ def main():
     files = {
         "header.svg": header_svg(),
         "streak.svg": streak_svg(s),
+        "trophy.svg": badges_svg(s),
         "top-langs.svg": langs_svg(s),
     }
     for key, label in HEADINGS.items():
