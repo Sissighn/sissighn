@@ -4,7 +4,7 @@
 
 <div align="center">
   <img src="assets/header.svg" alt="Sissi"/>
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=D16BA5&center=true&vCenter=true&width=500&lines=Business+Informatics+%40+Uni+Regensburg;Working+Student+Developer+%40+ATOSS;Explainable+AI+%7C+PyTorch+%7C+OSGi" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=D16BA5&center=true&vCenter=true&width=500&lines=Business+Informatics+%40+Uni+Regensburg;Working+Student+Developer+%40+ATOSS" alt="Typing SVG" />
 </div>
 
 <img src="assets/h-stack.svg" alt="Tech Stack"/>
