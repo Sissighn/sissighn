@@ -230,37 +230,6 @@ def heading_svg(label):
     return "".join(p)
 
 
-def stats_svg(s):
-    w, h = 500, 205
-    rows = [
-        ("Commits", s["commits"], TEAL),
-        ("Stars earned", s["stars"], GOLD),
-        ("Pull requests", s["prs"], PINK_HI),
-        ("Issues", s["issues"], BLUE),
-    ]
-    peak = max(v for _, v, _ in rows) or 1
-    bx, bw = 232, 175
-    p = [head(w, h, "GitHub stats"), card_bg(w, h)]
-
-    p.append(ring(96, 118, 50, s["active"] / 366, PINK, 8))
-    p.append(text_path(corm_m, str(s["total"]), 46, 96, 128, "#ffffff", anchor="middle"))
-    p.append(text_path(corm, "contributions", 15, 96, 182, MUTED, tracking=0.6, anchor="middle"))
-    p.append(text_path(corm, "last 12 months", 15, 96, 199, MUTED, tracking=0.6, anchor="middle"))
-
-    y = 62
-    for label, v, color in rows:
-        frac = v / peak
-        p.append(text_path(corm, label, 19, bx - 12, y + 5, TEXT, tracking=0.4, anchor="end"))
-        p.append(f'<rect x="{bx}" y="{y - 4}" width="{bw}" height="8" rx="4" fill="{TRACK}"/>')
-        p.append(
-            f'<rect x="{bx}" y="{y - 4}" width="{max(6, frac * bw):.1f}" height="8" rx="4" fill="{color}"/>'
-        )
-        p.append(text_path(corm_m, str(v), 19, bx + bw + 12, y + 5, color, tracking=0.4))
-        y += 36
-    p.append("</svg>")
-    return "".join(p)
-
-
 def streak_svg(s):
     w, h = 500, 190
     p = [head(w, h, "Contribution streak"), card_bg(w, h)]
@@ -286,9 +255,10 @@ def streak_svg(s):
 
 
 def langs_svg(s):
+    # one language per row: name left, percentage right - long names
+    # like "Jupyter Notebook" can never collide with the numbers
     w = 360
-    rows = (len(s["langs"]) + 1) // 2
-    h = 96 + rows * 28
+    h = 92 + len(s["langs"]) * 27
     p = [head(w, h, "Most used languages"), card_bg(w, h)]
     p.append(text_path(corm, "Most Used Languages", 24, 24, 42, ROSE, tracking=1.0))
 
@@ -303,12 +273,10 @@ def langs_svg(s):
     p.append("</g>")
 
     for i, (name, color, frac) in enumerate(s["langs"]):
-        col, row = i % 2, i // 2
-        lx = 24 + col * (bw / 2 + 12)
-        ly = 100 + row * 28
-        p.append(f'<circle cx="{lx + 5}" cy="{ly - 5}" r="5" fill="{color}"/>')
-        p.append(text_path(corm, name, 18, lx + 18, ly, TEXT, tracking=0.4))
-        p.append(text_path(corm, f"{frac * 100:.1f}%", 16, lx + bw / 2 - 12, ly, MUTED, anchor="end"))
+        ly = 100 + i * 27
+        p.append(f'<circle cx="29" cy="{ly - 5}" r="5" fill="{color}"/>')
+        p.append(text_path(corm, name, 18, 42, ly, TEXT, tracking=0.4))
+        p.append(text_path(corm, f"{frac * 100:.1f}%", 16, w - 24, ly, MUTED, anchor="end"))
     p.append("</svg>")
     return "".join(p)
 
@@ -330,7 +298,6 @@ def main():
 
     files = {
         "header.svg": header_svg(),
-        "stats.svg": stats_svg(s),
         "streak.svg": streak_svg(s),
         "top-langs.svg": langs_svg(s),
     }
