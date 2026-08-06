@@ -24,12 +24,18 @@ jobs:
         run: |
           mkdir -p fonts
           base=https://raw.githubusercontent.com/google/fonts/main/ofl
-          curl -sfL "$base/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf" \
-            -o fonts/CormorantGaramond-var.ttf
-          curl -sfL "$base/pinyonscript/PinyonScript-Regular.ttf" \
-            -o fonts/PinyonScript-Regular.ttf
-          curl -sfL "$base/jersey10/Jersey10-Regular.ttf" \
-            -o fonts/Jersey10-Regular.ttf
+          # -f makes curl fail on HTTP errors; the check below also catches
+          # a 200 that returned an error page instead of a font.
+          get () {
+            curl -sfL "$base/$1" -o "fonts/$2"
+            if [ ! -s "fonts/$2" ]; then
+              echo "::error::could not download $2"
+              exit 1
+            fi
+          }
+          get "cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf" CormorantGaramond-var.ttf
+          get "ballet/Ballet%5Bopsz%5D.ttf"                        Ballet-var.ttf
+          get "jersey10/Jersey10-Regular.ttf"                      Jersey10-Regular.ttf
           ls -la fonts/
 
       # Header, headings, stats, streak and languages - all rendered here,
