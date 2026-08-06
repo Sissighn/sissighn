@@ -14,10 +14,16 @@ from fontTools.varLib.instancer import instantiateVariableFont
 
 
 class Face:
-    def __init__(self, path, wght=None):
+    def __init__(self, path, wght=None, **axes):
+        """Extra keyword args pin variable-font axes, e.g. opsz=72 for Ballet."""
         font = TTFont(path)
-        if wght is not None and "fvar" in font:
-            font = instantiateVariableFont(font, {"wght": wght})
+        if wght is not None:
+            axes["wght"] = wght
+        if axes and "fvar" in font:
+            present = {a.axisTag for a in font["fvar"].axes}
+            wanted = {k: v for k, v in axes.items() if k in present}
+            if wanted:
+                font = instantiateVariableFont(font, wanted)
         self.font = font
         self.upm = font["head"].unitsPerEm
         self.glyphset = font.getGlyphSet()
@@ -48,6 +54,44 @@ class Face:
             total += tracking
             prev = gn
         return total
+
+    def ink_bounds(self, text, size, tracking=0.0):
+        """Visual extents (x_min, y_min, x_max, y_max) of the drawn outlines,
+        relative to a baseline origin at (0, 0), y growing downwards.
+
+        Script faces like Pinyon have swashes that reach well past the
+        advance width, so laying glyphs out by `width()` alone makes them
+        collide with whatever sits next to them.
+        """
+        from fontTools.pens.boundsPen import BoundsPen
+
+        scale = size / self.upm
+        pen_x = 0.0
+        prev = None
+        xs_min = ys_min = xs_max = ys_max = None
+        for ch in text:
+            gn = self._glyph_name(ch)
+            if gn is None:
+                pen_x += size * 0.3
+                prev = None
+                continue
+            if prev is not None:
+                pen_x += self.kern.get((prev, gn), 0) * scale
+            bp = BoundsPen(self.glyphset)
+            self.glyphset[gn].draw(bp)
+            if bp.bounds:
+                x0, y0, x1, y1 = bp.bounds
+                b = (pen_x + x0 * scale, -y1 * scale, pen_x + x1 * scale, -y0 * scale)
+                if xs_min is None:
+                    xs_min, ys_min, xs_max, ys_max = b
+                else:
+                    xs_min, ys_min = min(xs_min, b[0]), min(ys_min, b[1])
+                    xs_max, ys_max = max(xs_max, b[2]), max(ys_max, b[3])
+            pen_x += self.hmtx[gn][0] * scale + tracking
+            prev = gn
+        if xs_min is None:
+            return (0.0, 0.0, 0.0, 0.0)
+        return (xs_min, ys_min, xs_max, ys_max)
 
     def path(self, text, size, x=0.0, y=0.0, tracking=0.0, anchor="start"):
         """Return an SVG path `d` string for `text`, baseline at (x, y)."""
