@@ -1,7 +1,7 @@
 name: Update Cards
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 3 * * *"
   workflow_dispatch:
 jobs:
   update:
@@ -9,9 +9,9 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -28,6 +28,8 @@ jobs:
             -o fonts/CormorantGaramond-var.ttf
           curl -sfL "$base/pinyonscript/PinyonScript-Regular.ttf" \
             -o fonts/PinyonScript-Regular.ttf
+          curl -sfL "$base/jersey10/Jersey10-Regular.ttf" \
+            -o fonts/Jersey10-Regular.ttf
           ls -la fonts/
 
       # Header, headings, stats, streak and languages - all rendered here,
