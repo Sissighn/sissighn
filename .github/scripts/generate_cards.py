@@ -43,7 +43,8 @@ LOGIN = os.environ.get("GH_LOGIN", "Sissighn")
 FONT_DIR = os.environ.get("FONT_DIR", "fonts")
 OUT_DIR = os.environ.get("OUT_DIR", "assets")
 
-script = Face(os.path.join(FONT_DIR, "PinyonScript-Regular.ttf"))
+script = Face(os.path.join(FONT_DIR, "Ballet-var.ttf"), opsz=72)
+pix = Face(os.path.join(FONT_DIR, "Jersey10-Regular.ttf"))
 corm = Face(os.path.join(FONT_DIR, "CormorantGaramond-var.ttf"), wght=300)
 corm_m = Face(os.path.join(FONT_DIR, "CormorantGaramond-var.ttf"), wght=500)
 
@@ -220,14 +221,37 @@ def ring(cx, cy, r, frac, color, width=8):
 
 
 def header_svg():
-    # transparent - no card, just the wordmark and its hairline
-    w, h = 900, 160
-    p = [head(w, h, "Sissi")]
-    p.append(text_path(script, "Sissi", 96, w / 2, 108, ROSE, anchor="middle"))
-    p.append(
-        f'<line x1="{w/2-90}" y1="138" x2="{w/2+90}" y2="138" '
-        f'stroke="{PINK}" stroke-width="0.75" opacity="0.5"/>'
+    """welcome to / SISSI'S / coding diary
+
+    The Pinyon "S" doubles as the first letter of the pixel word. The word
+    tucks against the letter's stem, while the two small lines have to clear
+    its swash - which reaches far past the advance width, so the layout is
+    measured from the real outlines.
+    """
+    S, P, SM = 180, 74, 38
+    tr = 2.0
+    word, top, bottom = "ISSI'S", "welcome to", "coding diary"
+
+    s_adv = script.width("S", S)
+    s_ink = script.ink_bounds("S", S)[2]        # right edge of the swash
+
+    word_x = s_adv + 8                          # rides against the stem
+    small_x = s_ink + 14                         # clears the swash entirely
+
+    block_w = max(
+        s_ink,
+        word_x + pix.width(word, P, tr),
+        small_x + pix.width(top, SM, tr),
+        small_x + pix.width(bottom, SM, tr),
     )
+    w, h = int(block_w) + 90, 258
+    x0 = (w - block_w) / 2
+
+    p = [head(w, h, "Sissi's coding diary")]
+    p.append(text_path(script, "S", S, x0, 172, ROSE))
+    p.append(text_path(pix, top, SM, x0 + small_x, 82, ROSE, tracking=tr))
+    p.append(text_path(pix, word, P, x0 + word_x, 158, ROSE, tracking=tr))
+    p.append(text_path(pix, bottom, SM, x0 + small_x, 212, ROSE, tracking=tr))
     p.append("</svg>")
     return "".join(p)
 
