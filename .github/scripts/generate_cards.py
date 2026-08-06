@@ -228,15 +228,19 @@ def header_svg():
     its swash - which reaches far past the advance width, so the layout is
     measured from the real outlines.
     """
-    S, P, SM = 180, 74, 38
-    tr = 2.0
+    # ---- SIZE KNOB -------------------------------------------------------
+    k = 0.85
+    # ----------------------------------------------------------------------
+
+    S, P, SM = 180 * k, 74 * k, 38 * k          # script / pixel word / small lines
+    tr = 2.0 * k
     word, top, bottom = "ISSI'S", "welcome to", "coding diary"
 
     s_adv = script.width("S", S)
     s_ink = script.ink_bounds("S", S)[2]        # right edge of the swash
 
-    word_x = s_adv + 8                          # rides against the stem
-    small_x = s_ink + 14                         # clears the swash entirely
+    word_x = s_adv + 8 * k                      # rides against the stem
+    small_x = s_ink + 14 * k                    # clears the swash entirely
 
     block_w = max(
         s_ink,
@@ -244,14 +248,14 @@ def header_svg():
         small_x + pix.width(top, SM, tr),
         small_x + pix.width(bottom, SM, tr),
     )
-    w, h = int(block_w) + 90, 258
+    w, h = int(block_w + 90 * k), int(258 * k)
     x0 = (w - block_w) / 2
 
     p = [head(w, h, "Sissi's coding diary")]
-    p.append(text_path(script, "S", S, x0, 172, ROSE))
-    p.append(text_path(pix, top, SM, x0 + small_x, 82, ROSE, tracking=tr))
-    p.append(text_path(pix, word, P, x0 + word_x, 158, ROSE, tracking=tr))
-    p.append(text_path(pix, bottom, SM, x0 + small_x, 212, ROSE, tracking=tr))
+    p.append(text_path(script, "S", S, x0, 172 * k, ROSE))
+    p.append(text_path(pix, top, SM, x0 + small_x, 82 * k, ROSE, tracking=tr))
+    p.append(text_path(pix, word, P, x0 + word_x, 158 * k, ROSE, tracking=tr))
+    p.append(text_path(pix, bottom, SM, x0 + small_x, 212 * k, ROSE, tracking=tr))
     p.append("</svg>")
     return "".join(p)
 
